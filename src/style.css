@@ -1,0 +1,92 @@
+html{
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+*, *::after,*::before{
+    box-sizing: inherit;
+}
+
+.conetenedor{
+    display: flex;
+    flex-direction: column;
+}
+.contenedor-contacto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+}
+.contacto-h1{
+    text-align: center;
+}
+.formulario{
+    background-color: antiquewhite;
+    border: solid 1px black;
+    border-radius: 1rem;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+.formulario-input{
+    border-radius: .5rem;
+    padding: .5rem;
+}
+
+.contenedor-info{
+    display: flex;
+    gap: 1rem;
+    background-color: antiquewhite;
+    border: solid 1px black;
+    border-radius: 3rem;
+    padding: .5rem;
+}
+.contacto-img {
+    width: 5rem;
+    height: 5rem;
+    background-image: url(./img/img-6.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: solid 1px black;
+    border-radius: 50%;
+}
+.contenedor-datos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.contenedor-btn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:1rem;
+    padding: 2rem;
+}
+.btn{
+    border: solid 1px black;
+    border-radius: 1rem;
+    background-color: aqua;
+    color: black;
+    padding: .5rem;
+    text-align: center;
+}
+.btn:hover {
+    background-color: greenyellow;
+    cursor: pointer;
+}
+
+@media (max-width: 550px) {
+    .contenedor-info{
+        flex-direction: column;
+    }
+    .contenedor-datos {
+        padding: .5rem;
+    }
+    .info-p{
+        font-size: .8em;
+    }
+}
