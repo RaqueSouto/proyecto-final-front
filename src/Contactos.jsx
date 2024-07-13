@@ -1,29 +1,29 @@
-import { useState } from 'react';
-import Formulario from './Formulario';
-import Contacto from './Contacto';
+import { useState } from 'react'
+import Formulario from './Formulario'
+import Contacto from './Contacto'
 
 function Contactos() {
     // Para determinar los contactos de la agenda
-    let [contactos, setContacto] = useState([]);
+    let [contactos, setContacto] = useState([])
 
     // Función para crear los contactos
     function crearContacto(contacto) {
-        setContacto([...contactos, contacto]);
+        setContacto([...contactos, contacto])
     }
 
     // Función para editar los textos
     function editarTexto(id, nuevoTexto, campo) {
         setContacto(contactos.map(contacto => {
             if (contacto.id === id) {
-                return { ...contacto, [campo]: nuevoTexto };
+                return { ...contacto, [campo]: nuevoTexto }
             }
-            return contacto;
+            return contacto
         }));
     }
 
     // Función para borrar el contacto
     function borrarContacto(id) {
-        setContacto(contactos.filter(contacto => contacto.id !== id));
+        setContacto(contactos.filter(contacto => contacto.id !== id))
     }
 
     return (
@@ -47,4 +47,4 @@ function Contactos() {
     )
 }
 
-export default Contactos;
+export default Contactos

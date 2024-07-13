@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 function Formulario({ crearContacto }) {
     // Para determinar el estado del nombre
-    let [nombreTemporal, setNombreTemporal] = useState("");
+    let [nombreTemporal, setNombreTemporal] = useState("")
     // Para determinar el estado del número de teléfono
-    let [telTemporal, setTelTemporal] = useState("");
+    let [telTemporal, setTelTemporal] = useState("")
     // Para determinar el estado del correo electrónico
-    let [mailTemporal, setMailTemporal] = useState("");
+    let [mailTemporal, setMailTemporal] = useState("")
 
     return (
         <form className="formulario" onSubmit={evento => {
-            evento.preventDefault();
+            evento.preventDefault()
 
             if (nombreTemporal.trim() !== "" && telTemporal.trim() !== "" && mailTemporal.trim() !== "") {
                 crearContacto({
@@ -19,11 +19,11 @@ function Formulario({ crearContacto }) {
                     textoTel: telTemporal.trim(),
                     textoMail: mailTemporal.trim()
                 });
-                setNombreTemporal("");
-                setTelTemporal("");
-                setMailTemporal("");
+                setNombreTemporal("")
+                setTelTemporal("")
+                setMailTemporal("")
             } else {
-                alert("All fields must be filled out.");
+                alert("All fields must be filled out.")
             }
         }}>
             <input type="text" className="formulario-input"
@@ -43,4 +43,4 @@ function Formulario({ crearContacto }) {
     );
 }
 
-export default Formulario;
+export default Formulario

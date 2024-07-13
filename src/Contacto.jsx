@@ -1,31 +1,31 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 function Contacto({ id, textoNombre, textoTel, textoMail, editarTexto, borrarContacto }) {
     // Para determinar cuándo se está editando la información
-    let [update, setUpdate] = useState(false);
+    let [update, setUpdate] = useState(false)
     // Para determinar el nombre temporal del contacto
-    let [nombreTemporal, setNombreTemporal] = useState(textoNombre);
+    let [nombreTemporal, setNombreTemporal] = useState(textoNombre)
     // Para determinar el teléfono temporal del contacto
-    let [telTemporal, setTelTemporal] = useState(textoTel);
+    let [telTemporal, setTelTemporal] = useState(textoTel)
     // Para determinar el correo temporal del contacto
-    let [mailTemporal, setMailTemporal] = useState(textoMail);
+    let [mailTemporal, setMailTemporal] = useState(textoMail)
 
     const handleSave = () => {
         if (nombreTemporal.trim() === "" || telTemporal.trim() === "" || mailTemporal.trim() === "") {
-            alert("All fields must be filled out.");
-            return;
+            alert("All fields must be filled out.")
+            return
         }
 
         if (nombreTemporal !== textoNombre) {
-            editarTexto(id, nombreTemporal, 'textoNombre');
+            editarTexto(id, nombreTemporal, 'textoNombre')
         }
         if (telTemporal !== textoTel) {
-            editarTexto(id, telTemporal, 'textoTel');
+            editarTexto(id, telTemporal, 'textoTel')
         }
         if (mailTemporal !== textoMail) {
-            editarTexto(id, mailTemporal, 'textoMail');
+            editarTexto(id, mailTemporal, 'textoMail')
         }
-        setUpdate(false);
+        setUpdate(false)
     };
 
     return (
@@ -54,9 +54,9 @@ function Contacto({ id, textoNombre, textoTel, textoMail, editarTexto, borrarCon
             <div className="contenedor-btn">
                 <div className="btn" onClick={() => {
                     if (update) {
-                        handleSave();
+                        handleSave()
                     } else {
-                        setUpdate(true);
+                        setUpdate(true)
                     }
                 }}>{update ? "Save" : "Update"}</div>
                 <div className="btn" onClick={() => borrarContacto(id)}>Delete</div>
@@ -65,4 +65,4 @@ function Contacto({ id, textoNombre, textoTel, textoMail, editarTexto, borrarCon
     );
 }
 
-export default Contacto;
+export default Contacto
