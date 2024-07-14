@@ -58,7 +58,7 @@ function Contacto({ id, textoNombre, textoTel, textoMail, editarTexto, borrarCon
                         // Validar y enviar los cambios si se están editando los campos
                         if (nombreTemporal.trim() !== "" && telTemporal.trim() !== "" && mailTemporal.trim() !== "" &&
                             (nombreTemporal.trim() !== textoNombre || telTemporal.trim() !== textoTel || mailTemporal.trim() !== textoMail)) {
-                            let { error } = await fetch(`http://localhost:4000/contactos/actualizar/${id}/1`, {
+                            let { error } = await fetch(`https://proyecto-final-back-lpmu.onrender.com/contactos/actualizar/${id}/1`, {
                                 method: "PUT",
                                 body: JSON.stringify({
                                     textoNombre: nombreTemporal.trim(),
@@ -91,7 +91,7 @@ function Contacto({ id, textoNombre, textoTel, textoMail, editarTexto, borrarCon
                 }}>{update ? "Save" : "Update"}</div>
                 <div className="btn" onClick={() => {
                     // Función para borrar el contacto
-                    fetch(`http://localhost:4000/contactos/borrar/${id}`, {
+                    fetch(`https://proyecto-final-back-lpmu.onrender.com/contactos/borrar/${id}`, {
                         method: "DELETE"
                     })
                     .then(respuesta => respuesta.json())

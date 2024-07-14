@@ -8,7 +8,7 @@ function Contactos() {
 
     useEffect(() => {
         // Efecto para cargar los contactos desde el servidor cuando se monta el componente
-        fetch("http://localhost:4000/contactos")
+        fetch("https://proyecto-final-back-lpmu.onrender.com/contactos")
             .then(respuesta => respuesta.json())
             .then(contactos => setContactos(contactos)) // Almacenar los contactos en el estado
             .catch(error => console.error(error)) // Manejar errores en la petición

@@ -16,7 +16,7 @@ function Formulario({ crearContacto }) {
             if (nombreTemporal.trim() !== "" && telTemporal.trim() !== "" && mailTemporal.trim() !== "") {
                 try {
                     // Realizar la petición POST para crear un nuevo contacto
-                    let response = await fetch("http://localhost:4000/contactos/nuevo", {
+                    let response = await fetch("https://proyecto-final-back-lpmu.onrender.com/contactos/nuevo", {
                         method: "POST",
                         body: JSON.stringify({
                             textoNombre: nombreTemporal.trim(),
