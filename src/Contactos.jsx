@@ -1,45 +1,53 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Formulario from './Formulario'
 import Contacto from './Contacto'
 
 function Contactos() {
-    // Para determinar los contactos de la agenda
-    let [contactos, setContacto] = useState([])
+    // Estado para almacenar la lista de contactos de la agenda
+    const [contactos, setContactos] = useState([])
 
-    // Función para crear los contactos
+    useEffect(() => {
+        // Efecto para cargar los contactos desde el servidor cuando se monta el componente
+        fetch("http://localhost:4000/contactos")
+            .then(respuesta => respuesta.json())
+            .then(contactos => setContactos(contactos)) // Almacenar los contactos en el estado
+            .catch(error => console.error(error)) // Manejar errores en la petición
+    }, []) // Dependencia vacía para ejecutar el efecto solo una vez al montar el componente
+
+    // Función para agregar un nuevo contacto a la lista
     function crearContacto(contacto) {
-        setContacto([...contactos, contacto])
+        setContactos([...contactos, contacto])
     }
 
-    // Función para editar los textos
+    // Función para editar un campo específico de un contacto existente
     function editarTexto(id, nuevoTexto, campo) {
-        setContacto(contactos.map(contacto => {
+        setContactos(contactos.map(contacto => {
             if (contacto.id === id) {
-                return { ...contacto, [campo]: nuevoTexto }
+                return { ...contacto, [campo]: nuevoTexto } // Actualizar el campo especificado con el nuevo texto
             }
-            return contacto
-        }));
+            return contacto // Devolver el contacto sin cambios si no coincide el id
+        }))
     }
 
-    // Función para borrar el contacto
+    // Función para eliminar un contacto de la lista
     function borrarContacto(id) {
-        setContacto(contactos.filter(contacto => contacto.id !== id))
+        setContactos(contactos.filter(contacto => contacto.id !== id)) // Filtrar los contactos, excluyendo el contacto con el id dado
     }
 
     return (
         <div className="contenedor">
             <div className="contenedor-contacto">
-                <h1 className="contacto-h1">CONTACTS</h1>
-                <Formulario crearContacto={crearContacto} />
-                {contactos.map(({ id, textoNombre, textoTel, textoMail }) => (
-                    <Contacto 
-                        key={id} 
-                        id={id} 
-                        textoNombre={textoNombre} 
-                        textoTel={textoTel} 
-                        textoMail={textoMail} 
-                        editarTexto={editarTexto} 
-                        borrarContacto={borrarContacto} 
+                <h1 className="contacto-h1">CONTACTOS</h1>
+                <Formulario crearContacto={crearContacto} /> {/* Componente de formulario para crear nuevos contactos */}
+                {contactos.map(contacto => (
+                    <Contacto
+                        key={contacto.id} // Clave única para cada contacto en la lista
+                        id={contacto.id} // Identificador del contacto
+                        textoNombre={contacto.textoNombre} // Nombre del contacto
+                        textoTel={contacto.textoTel} // Teléfono del contacto
+                        textoMail={contacto.textoMail} // Correo electrónico del contacto
+                        editarTexto={editarTexto} // Función para editar el contacto
+                        borrarContacto={borrarContacto} // Función para borrar el contacto
                     />
                 ))}
             </div>

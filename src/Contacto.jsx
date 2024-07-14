@@ -1,32 +1,33 @@
 import { useState } from 'react'
 
 function Contacto({ id, textoNombre, textoTel, textoMail, editarTexto, borrarContacto }) {
-    // Para determinar cuándo se está editando la información
+    // Estado para determinar cuándo se está editando la información
     let [update, setUpdate] = useState(false)
-    // Para determinar el nombre temporal del contacto
+    // Estado para almacenar temporalmente el nombre del contacto
     let [nombreTemporal, setNombreTemporal] = useState(textoNombre)
-    // Para determinar el teléfono temporal del contacto
+    // Estado para almacenar temporalmente el teléfono del contacto
     let [telTemporal, setTelTemporal] = useState(textoTel)
-    // Para determinar el correo temporal del contacto
+    // Estado para almacenar temporalmente el correo del contacto
     let [mailTemporal, setMailTemporal] = useState(textoMail)
 
+    // Función para manejar la acción de guardar los cambios
     const handleSave = () => {
         if (nombreTemporal.trim() === "" || telTemporal.trim() === "" || mailTemporal.trim() === "") {
-            alert("All fields must be filled out.")
+            alert("All fields must be filled out.") // Validar que todos los campos estén llenos
             return
         }
 
         if (nombreTemporal !== textoNombre) {
-            editarTexto(id, nombreTemporal, 'textoNombre')
+            editarTexto(id, nombreTemporal, 'textoNombre') // Editar el nombre si ha cambiado
         }
         if (telTemporal !== textoTel) {
-            editarTexto(id, telTemporal, 'textoTel')
+            editarTexto(id, telTemporal, 'textoTel') // Editar el teléfono si ha cambiado
         }
         if (mailTemporal !== textoMail) {
-            editarTexto(id, mailTemporal, 'textoMail')
+            editarTexto(id, mailTemporal, 'textoMail') // Editar el correo si ha cambiado
         }
-        setUpdate(false)
-    };
+        setUpdate(false) // Terminar el modo de edición
+    }
 
     return (
         <div className="contenedor-info">
@@ -52,17 +53,58 @@ function Contacto({ id, textoNombre, textoTel, textoMail, editarTexto, borrarCon
                 </p>
             </div>
             <div className="contenedor-btn">
-                <div className="btn" onClick={() => {
+                <div className="btn" onClick={async () => {
                     if (update) {
-                        handleSave()
+                        // Validar y enviar los cambios si se están editando los campos
+                        if (nombreTemporal.trim() !== "" && telTemporal.trim() !== "" && mailTemporal.trim() !== "" &&
+                            (nombreTemporal.trim() !== textoNombre || telTemporal.trim() !== textoTel || mailTemporal.trim() !== textoMail)) {
+                            let { error } = await fetch(`http://localhost:4000/contactos/actualizar/${id}/1`, {
+                                method: "PUT",
+                                body: JSON.stringify({
+                                    textoNombre: nombreTemporal.trim(),
+                                    textoTel: telTemporal.trim(),
+                                    textoMail: mailTemporal.trim()
+                                }),
+                                headers: {
+                                    "Content-type": "application/json"
+                                }
+                            })
+                            .then(respuesta => respuesta.json())
+
+                            if (!error) {
+                                setNombreTemporal(nombreTemporal.trim())
+                                setTelTemporal(telTemporal.trim())
+                                setMailTemporal(mailTemporal.trim())
+                                setUpdate(false)
+                                return editarTexto(id, nombreTemporal.trim(), 'textoNombre') &&
+                                       editarTexto(id, telTemporal.trim(), 'textoTel') &&
+                                       editarTexto(id, mailTemporal.trim(), 'textoMail')
+                            }
+
+                            console.log("mostrar error al usuario") // Manejar el error en la actualización
+                        } else {
+                            handleSave() // Llamar a la función de guardado si los campos son válidos
+                        }
                     } else {
-                        setUpdate(true)
+                        setUpdate(true) // Activar el modo de edición
                     }
                 }}>{update ? "Save" : "Update"}</div>
-                <div className="btn" onClick={() => borrarContacto(id)}>Delete</div>
+                <div className="btn" onClick={() => {
+                    // Función para borrar el contacto
+                    fetch(`http://localhost:4000/contactos/borrar/${id}`, {
+                        method: "DELETE"
+                    })
+                    .then(respuesta => respuesta.json())
+                    .then(({ error }) => {
+                        if (!error) {
+                            return borrarContacto(id) // Borrar el contacto si no hay error
+                        }
+                        console.log("mostrar error al usuario") // Manejar el error en la eliminación del contacto
+                    })
+                }}>Delete</div>
             </div>
         </div>
-    );
+    )
 }
 
 export default Contacto
