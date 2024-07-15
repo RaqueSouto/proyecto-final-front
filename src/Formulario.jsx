@@ -10,7 +10,8 @@ function Formulario({ crearContacto }) {
 
     return (
         <form className="formulario" onSubmit={async evento => {
-            evento.preventDefault() // Prevenir el comportamiento por defecto del formulario
+            // Prevenir el comportamiento por defecto del formulario
+            evento.preventDefault() 
 
             // Validar que todos los campos estén llenos
             if (nombreTemporal.trim() !== "" && telTemporal.trim() !== "" && mailTemporal.trim() !== "") {
@@ -37,17 +38,23 @@ function Formulario({ crearContacto }) {
                             textoTel: telTemporal.trim(),
                             textoMail: mailTemporal.trim()
                         });
-                        setNombreTemporal("") // Limpiar el campo del nombre
-                        setTelTemporal("") // Limpiar el campo del teléfono
-                        setMailTemporal("") // Limpiar el campo del correo
+                        // Limpiar el campo del nombre
+                        setNombreTemporal("") 
+                        // Limpiar el campo del teléfono
+                        setTelTemporal("") 
+                        // Limpiar el campo del correo
+                        setMailTemporal("") 
                     } else {
-                        alert("Error al crear contacto") // Mostrar alerta de error
+                        // Mostrar alerta de error
+                        alert("Error al crear contacto") 
                     }
                 } catch (error) {
-                    alert("Error de conexión") // Mostrar alerta de error de conexión
+                    // Mostrar alerta de error de conexión
+                    alert("Error de conexión") 
                 }
             } else {
-                alert("Todos los campos deben estar llenos.") // Mostrar alerta si los campos están vacíos
+                // Mostrar alerta si los campos están vacíos
+                alert("Todos los campos deben estar llenos.") 
             }
         }}>
             <input type="text" className="formulario-input"

@@ -13,20 +13,25 @@ function Contacto({ id, textoNombre, textoTel, textoMail, editarTexto, borrarCon
     // Función para manejar la acción de guardar los cambios
     const handleSave = () => {
         if (nombreTemporal.trim() === "" || telTemporal.trim() === "" || mailTemporal.trim() === "") {
-            alert("All fields must be filled out.") // Validar que todos los campos estén llenos
+            // Validar que todos los campos estén llenos
+            alert("All fields must be filled out.") 
             return
         }
 
         if (nombreTemporal !== textoNombre) {
-            editarTexto(id, nombreTemporal, 'textoNombre') // Editar el nombre si ha cambiado
+            // Editar el nombre si ha cambiado
+            editarTexto(id, nombreTemporal, 'textoNombre') 
         }
         if (telTemporal !== textoTel) {
-            editarTexto(id, telTemporal, 'textoTel') // Editar el teléfono si ha cambiado
+            // Editar el teléfono si ha cambiado
+            editarTexto(id, telTemporal, 'textoTel') 
         }
         if (mailTemporal !== textoMail) {
-            editarTexto(id, mailTemporal, 'textoMail') // Editar el correo si ha cambiado
+            // Editar el correo si ha cambiado
+            editarTexto(id, mailTemporal, 'textoMail') 
         }
-        setUpdate(false) // Terminar el modo de edición
+        // Terminar la edición
+        setUpdate(false) 
     }
 
     return (
@@ -80,13 +85,15 @@ function Contacto({ id, textoNombre, textoTel, textoMail, editarTexto, borrarCon
                                        editarTexto(id, telTemporal.trim(), 'textoTel') &&
                                        editarTexto(id, mailTemporal.trim(), 'textoMail')
                             }
-
-                            console.log("mostrar error al usuario") // Manejar el error en la actualización
+                            // Manejar el error en la actualización
+                            console.log("mostrar error al usuario") 
                         } else {
-                            handleSave() // Llamar a la función de guardado si los campos son válidos
+                            // Llamar a la función de guardado si los campos son válidos
+                            handleSave() 
                         }
                     } else {
-                        setUpdate(true) // Activar el modo de edición
+                        // Activar el modo de edición
+                        setUpdate(true) 
                     }
                 }}>{update ? "Save" : "Update"}</div>
                 <div className="btn" onClick={() => {
@@ -97,9 +104,11 @@ function Contacto({ id, textoNombre, textoTel, textoMail, editarTexto, borrarCon
                     .then(respuesta => respuesta.json())
                     .then(({ error }) => {
                         if (!error) {
-                            return borrarContacto(id) // Borrar el contacto si no hay error
+                            // Borrar el contacto si no hay error
+                            return borrarContacto(id) 
                         }
-                        console.log("mostrar error al usuario") // Manejar el error en la eliminación del contacto
+                        // Manejar el error en la eliminación del contacto
+                        console.log("mostrar error al usuario") 
                     })
                 }}>Delete</div>
             </div>
