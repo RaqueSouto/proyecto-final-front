@@ -37,7 +37,7 @@ html{
 }
 
 .contenedor-info{
-    width: 40%;
+    min-width: 30%;
     display: flex;
     justify-content: space-between;
     gap: .8rem;
@@ -47,7 +47,7 @@ html{
     padding: .5rem;
 }
 .contacto-img {
-    width: 5rem;
+    min-width: 5rem;
     height: 5rem;
     background-image: url(./img/img-6.png);
     background-repeat: no-repeat;
@@ -111,7 +111,11 @@ html{
 
 @media (max-width: 550px) {
     .contenedor-info{
-        flex-direction: column;
+        gap: 0;
+    }
+    .contacto-img{
+        min-width: 4rem;
+        height: 4rem;
     }
     .contenedor-datos {
         padding: .5rem;
@@ -124,6 +128,12 @@ html{
         font-size: .8em;
     }
     .info-p input {
+        font-size: .8em;
+    }
+    .contenedor-btn{
+        padding: 0rem;
+    }
+    .btn{
         font-size: .8em;
     }
 }
